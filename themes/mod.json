@@ -1,0 +1,9 @@
+{
+  "name": "Theme Pack",
+  "version": "1.0.0",
+  "description": "Nine themes for WebStudio: Pixelated, Ocean, Hell, Ultra Dark, Enlighten, Jungle, Candy World, Hacker and Synthwave. Fonts, icons, buttons and editor colours; all but Pixelated bring their own colours. Pick one in Settings → Appearance → Themes.",
+  "author": "OmniForge Studio",
+  "main": "main.js",
+  "style": "style.css",
+  "requires": "1.2.1"
+}

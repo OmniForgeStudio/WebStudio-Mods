@@ -1,0 +1,267 @@
+/* Theme Pack for WebStudio. Selectors use html:root[...] so the colour themes beat the app's
+   :root[data-theme="light"] rules: they decide the colours, not Dark/Light (except Pixelated).
+   Every theme restyles: fonts, top bar, activity bar, side panels, tabs, buttons, status bar,
+   scrollbars, selection, dialogs, plus an animated scene on the start screen and preview. */
+
+/* ═════════════ shared ═════════════ */
+html[data-wsm-theme] body { font-family: var(--font-sans); }
+html[data-wsm-theme] .editor-empty-state, html[data-wsm-theme] .preview-empty { overflow: hidden; }
+html[data-wsm-theme] .editor-empty-state > *, html[data-wsm-theme] .preview-empty > * { position: relative; z-index: 1; }
+html[data-wsm-theme] .editor-empty-state::before, html[data-wsm-theme] .editor-empty-state::after,
+html[data-wsm-theme] .preview-empty::before, html[data-wsm-theme] .preview-empty::after { pointer-events: none; }
+html[data-wsm-theme] .activity-bar { position: relative; }
+
+/* ═════════════ PIXELATED: pixel fonts + pixel-art icons + 8-bit everything. Colours: your Dark/Light ═════════════ */
+html:root[data-wsm-theme="pixelated"] {
+  --font-sans: 'WSM Pixelify Sans', 'Inter', sans-serif;
+  --font-mono: 'WSM VT323', monospace;
+  --radius-sm: 0px; --radius: 0px; --radius-lg: 0px;
+}
+html[data-wsm-theme="pixelated"] body { -webkit-font-smoothing: none; }
+html[data-wsm-theme="pixelated"] :is(.btn, .ws-input, .ws-window, .ctx-menu, .toast, .editor-tab, .seg-control, .seg-control button, .exp-icon-btn, .act-btn) { border-radius: 0 !important; }
+/* 8-bit buttons: hard drop shadow, they "press" down */
+html[data-wsm-theme="pixelated"] .btn { box-shadow: 3px 3px 0 0 var(--border) !important; transition: transform .05s, box-shadow .05s; }
+html[data-wsm-theme="pixelated"] .btn-primary { box-shadow: 3px 3px 0 0 color-mix(in srgb, var(--accent) 45%, #000) !important; }
+html[data-wsm-theme="pixelated"] .btn:active { transform: translate(3px, 3px); box-shadow: none !important; }
+/* stepped pixel frame around windows and menus */
+html[data-wsm-theme="pixelated"] :is(.ws-window, .ctx-menu, .toast) {
+  border: 0 !important;
+  box-shadow: 0 -3px 0 0 var(--text-dim), 0 3px 0 0 var(--text-dim), -3px 0 0 0 var(--text-dim), 3px 0 0 0 var(--text-dim), 6px 6px 0 0 rgba(0, 0, 0, .35) !important;
+}
+/* dithered bars */
+html[data-wsm-theme="pixelated"] :is(.app-topbar, .editor-statusbar) {
+  background-image: repeating-conic-gradient(rgba(127, 127, 127, .10) 0 25%, transparent 0 50%);
+  background-size: 4px 4px;
+}
+html[data-wsm-theme="pixelated"] .app-topbar { border-bottom: 3px solid var(--border); }
+/* active tab + active activity button: chunky pixel markers */
+html[data-wsm-theme="pixelated"] .editor-tab.active { box-shadow: inset 0 -4px 0 0 var(--accent); }
+html[data-wsm-theme="pixelated"] .act-btn.active::before { width: 4px !important; border-radius: 0 !important; }
+html[data-wsm-theme="pixelated"] ::-webkit-scrollbar { width: 12px; height: 12px; }
+html[data-wsm-theme="pixelated"] ::-webkit-scrollbar-thumb { border-radius: 0 !important; background: var(--text-dim) !important; border: 3px solid var(--bg-panel); }
+html[data-wsm-theme="pixelated"] ::selection { background: var(--accent); color: #fff; }
+html[data-wsm-theme="pixelated"] :is(img, .empty-logo) { image-rendering: pixelated; }
+html[data-wsm-theme="pixelated"] .panel-title { letter-spacing: .08em; }
+
+/* ═════════════ OCEAN ═════════════ */
+html:root[data-wsm-theme="ocean"] {
+  --bg-base: #061626; --bg-panel: #0a2036; --bg-sidebar: #08192b; --bg-editor: #071a2c; --bg-topbar: #061423;
+  --bg-raised: #0e2a45; --bg-sunken: #051220; --bg-hover: #123553; --border: #15395a; --border-subtle: #0f2e4a;
+  --text-primary: #e2f6ff; --text-secondary: #9cc7e0; --text-dim: #5f8eab;
+  --accent: #2dd4bf; --accent-dim: rgba(45, 212, 191, .16); --accent-hover: #5eead4;
+  --green: #34d399; --red: #fb7185; --blue: #38bdf8;
+  --bg-tabs: #061626; --bg-tab: #0a2036; --bg-statusbar: #04101c; --bg-canvas: #051424;
+  --radius-sm: 8px; --radius: 12px; --radius-lg: 18px;
+  --font-sans: 'Nunito', 'Inter', sans-serif;
+}
+/* top bar: a wave rolls along its bottom edge */
+html[data-wsm-theme="ocean"] .app-topbar { background: linear-gradient(#082035, #061423); box-shadow: inset 0 -2px 0 rgba(45, 212, 191, .45); }
+html[data-wsm-theme="ocean"] .btn-primary { background: linear-gradient(135deg, #14b8a6, #0ea5e9) !important; border: 0 !important; border-radius: 999px !important; box-shadow: 0 4px 16px rgba(45, 212, 191, .3); }
+html[data-wsm-theme="ocean"] .btn-primary:hover { box-shadow: 0 0 0 4px rgba(45, 212, 191, .18), 0 6px 22px rgba(56, 189, 248, .35); }
+html[data-wsm-theme="ocean"] .editor-tab.active { box-shadow: inset 0 -2px 0 #2dd4bf; }
+html[data-wsm-theme="ocean"] .editor-statusbar { background: linear-gradient(90deg, #04101c, #062a3a, #04101c); }
+html[data-wsm-theme="ocean"] ::-webkit-scrollbar-thumb { background: rgba(45, 212, 191, .3) !important; border-radius: 999px !important; }
+html[data-wsm-theme="ocean"] ::selection { background: rgba(45, 212, 191, .35); }
+html[data-wsm-theme="ocean"] .ws-window { box-shadow: 0 0 0 1px rgba(45, 212, 191, .15), 0 24px 60px rgba(0, 20, 40, .7); }
+
+/* ═════════════ HELL ═════════════ */
+html:root[data-wsm-theme="hell"] {
+  --bg-base: #0d0405; --bg-panel: #160708; --bg-sidebar: #110506; --bg-editor: #120607; --bg-topbar: #0a0303;
+  --bg-raised: #221012; --bg-sunken: #080202; --bg-hover: #2c1212; --border: #3a1416; --border-subtle: #2a0e10;
+  --text-primary: #ffe6dc; --text-secondary: #e0a594; --text-dim: #9a6253;
+  --accent: #ff4d1a; --accent-dim: rgba(255, 77, 26, .18); --accent-hover: #ff7a3d;
+  --green: #f59e0b; --red: #ef4444; --blue: #fb923c;
+  --bg-tabs: #0d0405; --bg-tab: #160708; --bg-statusbar: #1c0606; --bg-canvas: #0a0303;
+  --radius-sm: 2px; --radius: 3px; --radius-lg: 4px;
+  --font-sans: 'WSM Oswald', 'Inter', sans-serif;
+}
+html[data-wsm-theme="hell"] body { letter-spacing: .02em; }
+html[data-wsm-theme="hell"] .panel-title { letter-spacing: .14em; color: #ff8a5c; text-shadow: 0 0 10px rgba(255, 77, 26, .45); }
+/* top bar: a flowing lava line */
+html[data-wsm-theme="hell"] .app-topbar {
+  background-image: linear-gradient(90deg, #7f1d1d, #ff4d1a, #fbbf24, #ff4d1a, #7f1d1d), linear-gradient(#170607, #0a0303);
+  background-size: 240px 2px, auto; background-position: 0 100%, 0 0; background-repeat: repeat-x, no-repeat;
+}
+html[data-wsm-theme="hell"] .btn-primary { background: linear-gradient(180deg, #ff7a3d, #c2260b) !important; border: 1px solid #ff9a6a !important; text-transform: uppercase; letter-spacing: .08em; box-shadow: 0 0 18px rgba(255, 77, 26, .45); }
+html[data-wsm-theme="hell"] .btn-primary:hover { box-shadow: 0 0 28px rgba(255, 120, 40, .7); }
+html[data-wsm-theme="hell"] .editor-tab.active { box-shadow: inset 0 -2px 0 #ff4d1a, 0 6px 14px -8px rgba(255, 77, 26, .8); }
+html[data-wsm-theme="hell"] .editor-statusbar { background: linear-gradient(90deg, #1c0606, #3b0a0a, #1c0606); }
+html[data-wsm-theme="hell"] ::-webkit-scrollbar-thumb { background: linear-gradient(#ff4d1a, #7f1d1d) !important; }
+html[data-wsm-theme="hell"] ::selection { background: rgba(255, 77, 26, .45); }
+html[data-wsm-theme="hell"] .ws-window { box-shadow: 0 0 0 1px rgba(255, 77, 26, .35), 0 0 40px rgba(255, 50, 10, .25), 0 24px 60px rgba(0, 0, 0, .8); }
+
+/* ═════════════ ULTRA DARK: true black, hairlines, a slow starfield ═════════════ */
+html:root[data-wsm-theme="ultradark"] {
+  --bg-base: #000; --bg-panel: #000; --bg-sidebar: #000; --bg-editor: #000; --bg-topbar: #000;
+  --bg-raised: #0b0b0b; --bg-sunken: #000; --bg-hover: #141414; --border: #161616; --border-subtle: #0e0e0e;
+  --text-primary: #d9d9d9; --text-secondary: #8c8c8c; --text-dim: #555;
+  --accent: #a78bfa; --accent-dim: rgba(167, 139, 250, .14); --accent-hover: #c4b5fd;
+  --green: #4ade80; --red: #f87171; --blue: #60a5fa;
+  --bg-tabs: #000; --bg-tab: #000; --bg-statusbar: #000; --bg-canvas: #000;
+  --font-sans: 'Inter', sans-serif;
+}
+html[data-wsm-theme="ultradark"] .app-topbar { box-shadow: inset 0 -1px 0 rgba(167, 139, 250, .25); }
+html[data-wsm-theme="ultradark"] .btn-primary { background: transparent !important; color: var(--accent) !important; border: 1px solid var(--accent) !important; }
+html[data-wsm-theme="ultradark"] .btn-primary:hover { box-shadow: 0 0 16px rgba(167, 139, 250, .35); background: rgba(167, 139, 250, .08) !important; }
+html[data-wsm-theme="ultradark"] .editor-tab.active { box-shadow: inset 0 -1px 0 var(--accent); }
+html[data-wsm-theme="ultradark"] ::-webkit-scrollbar-thumb { background: #1a1a1a !important; }
+html[data-wsm-theme="ultradark"] ::selection { background: rgba(167, 139, 250, .3); }
+html[data-wsm-theme="ultradark"] .ws-window { box-shadow: 0 0 0 1px #1e1e1e, 0 30px 80px #000; }
+
+/* ═════════════ ENLIGHTEN: warm paper, gold and slowly turning sun rays ═════════════ */
+html:root[data-wsm-theme="enlighten"] {
+  --bg-base: #fbf8f0; --bg-panel: #fffdf7; --bg-sidebar: #f7f1e3; --bg-editor: #fffdf6; --bg-topbar: #f4ecd8;
+  --bg-raised: #ffffff; --bg-sunken: #f1e9d5; --bg-hover: #efe4c8; --border: #e6d9b8; --border-subtle: #efe5cc;
+  --text-primary: #2f2817; --text-secondary: #6b5d3f; --text-dim: #9c8c66;
+  --accent: #c99512; --accent-dim: rgba(201, 149, 18, .16); --accent-hover: #ad7f0c;
+  --green: #4d7c0f; --red: #b91c1c; --blue: #1d4ed8;
+  --bg-tabs: #f4ecd8; --bg-tab: #fbf8f0; --bg-statusbar: #efe4c8; --bg-canvas: #f6efdf;
+  --radius-sm: 6px; --radius: 10px; --radius-lg: 14px;
+  --font-sans: 'Lexend', 'Inter', sans-serif;
+  color-scheme: light;
+}
+html[data-wsm-theme="enlighten"] .app-topbar { background-image: linear-gradient(90deg, transparent, rgba(201, 149, 18, .5), transparent); background-size: 100% 2px; background-position: bottom; background-repeat: no-repeat; }
+html[data-wsm-theme="enlighten"] .panel-title { color: #a16207; }
+html[data-wsm-theme="enlighten"] .btn-primary { background: linear-gradient(135deg, #e0b034, #c99512) !important; border: 0 !important; color: #fff !important; box-shadow: 0 4px 14px rgba(201, 149, 18, .35); }
+html[data-wsm-theme="enlighten"] .btn-primary:hover { box-shadow: 0 0 0 4px rgba(250, 204, 21, .25), 0 8px 22px rgba(201, 149, 18, .4); }
+html[data-wsm-theme="enlighten"] .editor-tab.active { box-shadow: inset 0 -2px 0 var(--accent); background: #fffdf6; }
+html[data-wsm-theme="enlighten"] .editor-statusbar { background: linear-gradient(90deg, #efe4c8, #f8edc9, #efe4c8); color: #6b5d3f; }
+html[data-wsm-theme="enlighten"] ::-webkit-scrollbar-thumb { background: #e2cf9a !important; border-radius: 999px !important; }
+html[data-wsm-theme="enlighten"] ::selection { background: rgba(250, 204, 21, .4); }
+html[data-wsm-theme="enlighten"] .ws-window { box-shadow: 0 0 0 1px #e6d9b8, 0 20px 50px rgba(120, 90, 20, .2); }
+html[data-wsm-theme="enlighten"] .empty-logo { filter: drop-shadow(0 0 18px rgba(250, 204, 21, .6)); }
+
+/* ═════════════ JUNGLE: vines, canopy, fireflies ═════════════ */
+html:root[data-wsm-theme="jungle"] {
+  --bg-base: #08150c; --bg-panel: #0d1f12; --bg-sidebar: #0a1a0f; --bg-editor: #0b1a0f; --bg-topbar: #071209;
+  --bg-raised: #14301c; --bg-sunken: #061009; --bg-hover: #183a22; --border: #1f4528; --border-subtle: #16341e;
+  --text-primary: #e5f8dc; --text-secondary: #a9cf9d; --text-dim: #6f9468;
+  --accent: #a3e635; --accent-dim: rgba(163, 230, 53, .16); --accent-hover: #bef264;
+  --green: #84cc16; --red: #f97316; --blue: #2dd4bf;
+  --bg-tabs: #08150c; --bg-tab: #0d1f12; --bg-statusbar: #061009; --bg-canvas: #07120a;
+  --radius-sm: 6px; --radius: 12px; --radius-lg: 16px;
+  --font-sans: 'Poppins', 'Inter', sans-serif;
+}
+html[data-wsm-theme="jungle"] .app-topbar { background: linear-gradient(#0b1d10, #071209); box-shadow: inset 0 -2px 0 rgba(163, 230, 53, .35); }
+html[data-wsm-theme="jungle"] .btn-primary { background: linear-gradient(135deg, #a3e635, #4d7c0f) !important; color: #0b1a0f !important; border: 0 !important; border-radius: 16px 4px 16px 4px !important; font-weight: 600; }
+html[data-wsm-theme="jungle"] .btn-primary:hover { box-shadow: 0 0 0 3px rgba(163, 230, 53, .25), 0 6px 18px rgba(77, 124, 15, .5); }
+html[data-wsm-theme="jungle"] .editor-tab.active { box-shadow: inset 0 -2px 0 var(--accent); }
+html[data-wsm-theme="jungle"] .editor-statusbar { background: linear-gradient(90deg, #061009, #12301a, #061009); }
+html[data-wsm-theme="jungle"] ::-webkit-scrollbar-thumb { background: #2f5a35 !important; border-radius: 999px !important; }
+html[data-wsm-theme="jungle"] ::selection { background: rgba(163, 230, 53, .35); }
+html[data-wsm-theme="jungle"] .ws-window { box-shadow: 0 0 0 1px #1f4528, 0 24px 60px rgba(0, 0, 0, .6); }
+
+/* ═════════════ CANDY WORLD: pastel, bubbly, sprinkles everywhere ═════════════ */
+html:root[data-wsm-theme="candy"] {
+  --bg-base: #fff0f7; --bg-panel: #fff7fb; --bg-sidebar: #ffe9f4; --bg-editor: #fff5fb; --bg-topbar: #ffd9ec;
+  --bg-raised: #ffffff; --bg-sunken: #ffe4f1; --bg-hover: #ffd6ea; --border: #f9b9d8; --border-subtle: #fcd3e7;
+  --text-primary: #5b2a4c; --text-secondary: #9a4f80; --text-dim: #c58aae;
+  --accent: #ec4899; --accent-dim: rgba(236, 72, 153, .16); --accent-hover: #db2777;
+  --green: #14b8a6; --red: #f43f5e; --blue: #8b5cf6;
+  --bg-tabs: #ffe4f1; --bg-tab: #fff0f7; --bg-statusbar: #ffd6ea; --bg-canvas: #fff2f8;
+  --radius-sm: 10px; --radius: 16px; --radius-lg: 22px;
+  --font-sans: 'WSM Fredoka', 'Nunito', sans-serif;
+  color-scheme: light;
+}
+/* top bar: candy-cane stripes slide along the bottom */
+html[data-wsm-theme="candy"] .app-topbar {
+  background-image: repeating-linear-gradient(-45deg, #ff8fc8 0 8px, #ffffff 8px 16px, #a78bfa 16px 24px, #ffffff 24px 32px), linear-gradient(#ffe2f0, #ffd9ec);
+  background-size: 240px 4px, auto; background-position: 0 100%, 0 0; background-repeat: repeat-x, no-repeat;
+}
+html[data-wsm-theme="candy"] .btn-primary { background: linear-gradient(135deg, #f472b6, #a78bfa) !important; border: 0 !important; border-radius: 999px !important; color: #fff !important; box-shadow: 0 4px 0 #c0397f, 0 8px 18px rgba(236, 72, 153, .3); }
+html[data-wsm-theme="candy"] .btn-primary:hover { }
+html[data-wsm-theme="candy"] .btn { border-radius: 999px !important; }
+html[data-wsm-theme="candy"] .editor-tab.active { background: #fff; box-shadow: inset 0 -3px 0 #f472b6; border-radius: 12px 12px 0 0 !important; }
+html[data-wsm-theme="candy"] .editor-statusbar { background: linear-gradient(90deg, #fbcfe8, #ddd6fe, #bfdbfe, #bbf7d0, #fef08a, #fbcfe8); color: #7a3a63; }
+html[data-wsm-theme="candy"] ::-webkit-scrollbar-thumb { background: linear-gradient(#f9a8d4, #c4b5fd) !important; border-radius: 999px !important; }
+html[data-wsm-theme="candy"] ::selection { background: #fbcfe8; }
+html[data-wsm-theme="candy"] .ws-window { box-shadow: 0 0 0 3px #fbcfe8, 0 20px 50px rgba(236, 72, 153, .25); }
+
+/* ═════════════ HACKER: green phosphor, CRT scanlines, falling code ═════════════ */
+html:root[data-wsm-theme="hacker"] {
+  --bg-base: #000; --bg-panel: #010702; --bg-sidebar: #000; --bg-editor: #020a03; --bg-topbar: #000;
+  --bg-raised: #031006; --bg-sunken: #000; --bg-hover: #062010; --border: #0d3a17; --border-subtle: #082612;
+  --text-primary: #39ff6a; --text-secondary: #2fcf57; --text-dim: #1d7a35;
+  --accent: #39ff6a; --accent-dim: rgba(57, 255, 106, .14); --accent-hover: #7dff9b;
+  --green: #39ff6a; --red: #ff3b3b; --blue: #3bffd2;
+  --bg-tabs: #000; --bg-tab: #010702; --bg-statusbar: #000; --bg-canvas: #000;
+  --radius-sm: 0px; --radius: 0px; --radius-lg: 0px;
+  --font-sans: 'JetBrains Mono', 'WSM VT323', monospace;
+}
+html[data-wsm-theme="hacker"] body { text-shadow: 0 0 6px rgba(57, 255, 106, .35); }
+html[data-wsm-theme="hacker"] .panel-title { text-transform: uppercase; letter-spacing: .12em; }
+html[data-wsm-theme="hacker"] .panel-title::before { content: "> "; }
+/* faint CRT scanlines and a slight flicker on the app itself (never on the website preview) */
+html[data-wsm-theme="hacker"] :is(.editor-pane, .side-panel, .app-topbar) { position: relative; }
+html[data-wsm-theme="hacker"] .app-topbar { box-shadow: inset 0 -1px 0 #0d3a17, 0 0 12px rgba(57, 255, 106, .12); }
+html[data-wsm-theme="hacker"] .editor-statusbar::before { content: "root@webstudio:~$ "; color: #39ff6a; padding: 0 8px; white-space: nowrap; }
+html[data-wsm-theme="hacker"] .btn { border-radius: 0 !important; }
+html[data-wsm-theme="hacker"] .btn-primary { background: transparent !important; color: #39ff6a !important; border: 1px solid #39ff6a !important; text-transform: uppercase; letter-spacing: .1em; }
+html[data-wsm-theme="hacker"] .btn-primary::before { content: "[ "; }
+html[data-wsm-theme="hacker"] .btn-primary::after { content: " ]"; }
+html[data-wsm-theme="hacker"] .btn-primary:hover { background: #39ff6a !important; color: #000 !important; box-shadow: 0 0 18px rgba(57, 255, 106, .6); }
+html[data-wsm-theme="hacker"] .editor-tab.active { box-shadow: inset 0 -2px 0 #39ff6a; }
+html[data-wsm-theme="hacker"] ::-webkit-scrollbar-thumb { background: #0d3a17 !important; border-radius: 0 !important; }
+html[data-wsm-theme="hacker"] ::selection { background: #39ff6a; color: #000; }
+html[data-wsm-theme="hacker"] .ws-window { box-shadow: 0 0 0 1px #39ff6a, 0 0 30px rgba(57, 255, 106, .2); }
+html[data-wsm-theme="hacker"] .empty-logo { filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(6) brightness(1.1) drop-shadow(0 0 10px #39ff6a); }
+
+/* ═════════════ SYNTHWAVE: neon sun, perspective grid, 80s chrome ═════════════ */
+html:root[data-wsm-theme="synthwave"] {
+  --bg-base: #160827; --bg-panel: #1d0b33; --bg-sidebar: #19092d; --bg-editor: #1a0b2e; --bg-topbar: #12061f;
+  --bg-raised: #2a1048; --bg-sunken: #0f0519; --bg-hover: #321459; --border: #3d1a66; --border-subtle: #2c1250;
+  --text-primary: #f6e7ff; --text-secondary: #c9a6f0; --text-dim: #8466ad;
+  --accent: #ff3ec8; --accent-dim: rgba(255, 62, 200, .16); --accent-hover: #ff70d9;
+  --green: #72f1b8; --red: #fe4450; --blue: #36f9f6;
+  --bg-tabs: #12061f; --bg-tab: #1d0b33; --bg-statusbar: #12061f; --bg-canvas: #12061f;
+  --radius-sm: 4px; --radius: 6px; --radius-lg: 10px;
+  --font-sans: 'Poppins', 'Inter', sans-serif;
+}
+html[data-wsm-theme="synthwave"] :is(.panel-title, .app-topbar .brand, .settings-nav) { font-family: 'WSM Orbitron', 'Poppins', sans-serif; letter-spacing: .08em; }
+html[data-wsm-theme="synthwave"] .panel-title { color: #36f9f6; text-shadow: 0 0 8px rgba(54, 249, 246, .6); }
+html[data-wsm-theme="synthwave"] .app-topbar {
+  background-image: linear-gradient(90deg, #ff3ec8, #36f9f6, #ff8b3d, #ff3ec8), linear-gradient(#1d0b33, #12061f);
+  background-size: 240px 2px, auto; background-position: 0 100%, 0 0; background-repeat: repeat-x, no-repeat;
+}
+html[data-wsm-theme="synthwave"] .btn-primary { background: transparent !important; color: #fff !important; border: 1px solid #ff3ec8 !important; box-shadow: 0 0 10px rgba(255, 62, 200, .55), inset 0 0 10px rgba(255, 62, 200, .35); text-shadow: 0 0 6px #ff3ec8; }
+html[data-wsm-theme="synthwave"] .btn-primary:hover { border-color: #36f9f6 !important; box-shadow: 0 0 18px rgba(54, 249, 246, .7), inset 0 0 12px rgba(54, 249, 246, .4); text-shadow: 0 0 8px #36f9f6; }
+html[data-wsm-theme="synthwave"] .editor-tab.active { background-image: linear-gradient(90deg, #ff3ec8, #36f9f6); background-size: 100% 2px; background-position: bottom; background-repeat: no-repeat; }
+html[data-wsm-theme="synthwave"] .editor-statusbar { background: linear-gradient(90deg, #12061f, #2a0d4a, #12061f); }
+html[data-wsm-theme="synthwave"] ::-webkit-scrollbar-thumb { background: linear-gradient(#ff3ec8, #7b2ff7) !important; border-radius: 999px !important; }
+html[data-wsm-theme="synthwave"] ::selection { background: rgba(255, 62, 200, .45); }
+html[data-wsm-theme="synthwave"] .ws-window { box-shadow: 0 0 0 1px #ff3ec8, 0 0 30px rgba(255, 62, 200, .3), 0 24px 60px rgba(0, 0, 0, .7); }
+html[data-wsm-theme="synthwave"] .empty-logo { filter: drop-shadow(0 0 12px #ff3ec8); }
+
+/* decorations sit behind the activity bar buttons, never on top of them */
+/* Candy World: one candy cane rising from the bottom of the main editor area, leaning slightly right */
+html[data-wsm-theme="candy"] .editor-empty-state {
+  background-image: url(img:candy-cane); background-repeat: no-repeat;
+  background-position: right 5% bottom -60px; background-size: auto 250px;
+}
+html[data-wsm-theme] .activity-bar > * { position: relative; z-index: 1; }
+
+/* Ocean: the waves at the bottom of the activity bar, above the Settings button (behind it, not on top) */
+html[data-wsm-theme="ocean"] .activity-bar::before {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 160px; z-index: 0; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 120'%3E%3Cpath d='M0 40q12-8 24 0t24 0v80H0z' fill='%232dd4bf' opacity='.10'/%3E%3Cpath d='M0 62q12-8 24 0t24 0v58H0z' fill='%2338bdf8' opacity='.12'/%3E%3Cpath d='M0 84q12-8 24 0t24 0v36H0z' fill='%232dd4bf' opacity='.16'/%3E%3C/svg%3E") bottom / 100% auto no-repeat;
+}
+
+/* Pixelated: the pixel clouds drifting across the start screen and the empty preview */
+html[data-wsm-theme="pixelated"] :is(.editor-empty-state, .preview-empty)::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .55; image-rendering: pixelated;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40' shape-rendering='crispEdges'%3E%3Cg fill='%23888' opacity='.5'%3E%3Cpath d='M8 8h12v2h4v4H4v-4h4zM70 20h10v2h4v4H66v-4h4zM100 4h8v2h3v3H97V6h3z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 480px 160px repeat-x;
+  animation: wsm-clouds 40s linear infinite;
+}
+@keyframes wsm-clouds { from { background-position: 0 0; } to { background-position: 480px 0; } }
+html.reduce-motion[data-wsm-theme="pixelated"] :is(.editor-empty-state, .preview-empty)::before { animation: none; }
+@media (prefers-reduced-motion: reduce) { html[data-wsm-theme="pixelated"] :is(.editor-empty-state, .preview-empty)::before { animation: none; } }
+
+/* Ocean keeps its bubbles rising in the activity bar (behind the buttons, never in the way) */
+html[data-wsm-theme="ocean"] .activity-bar::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 200'%3E%3Cg fill='none' stroke='%239cc7e0' opacity='.5'%3E%3Ccircle cx='12' cy='30' r='3'/%3E%3Ccircle cx='34' cy='90' r='2'/%3E%3Ccircle cx='20' cy='150' r='4'/%3E%3Ccircle cx='38' cy='190' r='2.5'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 100% 200px repeat-y;
+  animation: wsm-bubbles 14s linear infinite;
+}
+@keyframes wsm-bubbles { from { background-position: 0 0; } to { background-position: 0 -400px; } }
+html.reduce-motion[data-wsm-theme="ocean"] .activity-bar::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { html[data-wsm-theme="ocean"] .activity-bar::after { animation: none; } }
